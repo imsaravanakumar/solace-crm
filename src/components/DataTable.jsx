@@ -1,84 +1,91 @@
-function DataTable() {
+function DataTable({ title, columns, data }) {
   return (
-    <div className="activity-card">
-      <h6 className="activity-title">Recent Activity</h6>
+    <div className="mt-4">
+      {title && (
+        <h6 className="fw-semibold mb-3 small">{title}</h6>
+      )}
 
-      <div className="table-wrapper">
-        <table className="activity-table">
-          <thead>
-            <tr>
-              <th>Inspection ID</th>
-              <th>Property</th>
-              <th>Agent</th>
-              <th>Inspector</th>
-              <th>Status</th>
-              <th>Last Updated</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+      <div className="card border-0 shadow-sm rounded overflow-hidden">
 
-          <tbody>
-            <tr>
-              <td>INSP - 10245</td>
-              <td>Greenview apartment</td>
-              <td>Bluenest realty</td>
-              <td>John mathews</td>
-              <td><span className="status pending">Pending</span></td>
-              <td>2 mins ago</td>
-              <td className="action-link">View</td>
-            </tr>
+        {/* ================= DESKTOP TABLE ================= */}
+        <div className="d-none d-md-block">
+          <table
+            className="table table-sm align-middle mb-0 text-center"
+            style={{
+              tableLayout: "fixed",
+              fontSize: "11px",
+            }}
+          >
+            <thead
+              style={{ backgroundColor: "#bac3da" }}
+              className="text-muted"
+            >
+              <tr>
+                {columns.map((col, index) => (
+                  <th
+                    key={index}
+                    className="text-nowrap py-2 px-3"
+                    style={{ backgroundColor: "#dde2ed" }}
+                  >
+                    {col}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-            <tr>
-              <td>INSP - 10244</td>
-              <td className="property-link">Palm residency - Villa</td>
-              <td>Urbankey estates</td>
-              <td>Sarah collins</td>
-              <td><span className="status assigned">Assigned</span></td>
-              <td>1 hour ago</td>
-              <td className="action-link">View</td>
-            </tr>
+            <tbody>
+              {data.map((row, rowIndex) => (
+                <tr key={rowIndex} style={{ height: "50px" }}>
+                  {row.map((cell, cellIndex) => (
+                    <td key={cellIndex} className="text-nowrap px-3">
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <tr>
-              <td>INSP - 10243</td>
-              <td>Lakeview towers</td>
-              <td>Bluenest realty</td>
-              <td>Mark robinson</td>
-              <td><span className="status active">Active</span></td>
-              <td>Today, 11:30 AM</td>
-              <td className="action-link">View</td>
-            </tr>
+        {/* ================= MOBILE CARD VIEW ================= */}
+        <div className="d-block d-md-none p-3">
+          {data.map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="border rounded-4 p-3 mb-3 bg-white shadow-sm"
+              style={{ fontSize: "13px" }}
+            >
+              {row.map((cell, cellIndex) => {
+                const label = columns[cellIndex];
+                const isStatus = label === "Status";
 
-            <tr>
-              <td>INSP - 10242</td>
-              <td>Maple street house</td>
-              <td>Primelet agents</td>
-              <td>Emma watson</td>
-              <td><span className="status completed">Completed</span></td>
-              <td>2 days ago</td>
-              <td className="action-link">View Report</td>
-            </tr>
+                return (
+                  <div
+                    key={cellIndex}
+                    className="row align-items-center py-2"
+                  >
+                    {/* Label */}
+                    <div className="col-5 text-muted fw-medium">
+                      {label}
+                    </div>
 
-            <tr>
-              <td>INSP - 10241</td>
-              <td>Sunrise commercial complex</td>
-              <td>Urbankey estates</td>
-              <td>David lee</td>
-              <td><span className="status closed">Closed</span></td>
-              <td>3 days ago</td>
-              <td className="action-link">View</td>
-            </tr>
+                    {/* Value */}
+                    <div className="col-7 text-end">
+                      {isStatus ? (
+                        <div className="w-100">
+                          {cell}
+                        </div>
+                      ) : (
+                        cell
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
 
-            <tr>
-              <td>INSP - 10240</td>
-              <td>Oakwood cottage</td>
-              <td>Primelet agents</td>
-              <td>Emma watson</td>
-              <td><span className="status cancelled">Cancelled</span></td>
-              <td>5 days ago</td>
-              <td className="action-link">View</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   );

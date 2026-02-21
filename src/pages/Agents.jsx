@@ -1,6 +1,5 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import "../styles/dashboard.css";
 
 const agentsData = [
   {
@@ -13,7 +12,7 @@ const agentsData = [
     status: "Active",
   },
   {
-    name: "Olivia harris",
+    name: "Olivia Harris",
     company: "Urbankey estates",
     email: "olivia@urbankey.com",
     phone: "+44 8911 234567",
@@ -46,90 +45,151 @@ function Agents() {
     <>
       <Sidebar />
 
-      <div className="page-container">
+      <div
+        className="bg-light content-wrapper"
+        style={{
+          minHeight: "100vh",
+          padding: "10px 30px",
+        }}
+      >
         <Topbar />
 
-        <div className="content-wrapper">
-
-          {/* HEADER SECTION */}
-          <div className="agents-header">
-            <div className="search-small">
+        {/* Search + Action Bar */}
+        <div className="d-flex justify-content-between align-items-center my-3 flex-wrap gap-2">
+          <div className="input-group" style={{ maxWidth: "250px" }}>
+            <span className="input-group-text bg-white border-0">
               <i className="bi bi-search"></i>
-              <input placeholder="Search agents" />
-            </div>
-
-            <div className="agents-actions">
-              <select className="status-filter">
-                <option>Status</option>
-                <option>Active</option>
-                <option>Inactive</option>
-                <option>Suspended</option>
-              </select>
-
-              <button className="add-btn">
-                + Add Agents
-              </button>
-            </div>
+            </span>
+            <input
+              type="text"
+              className="form-control border-0"
+              placeholder="Search agents"
+            />
           </div>
 
-          {/* TABLE CARD */}
-          <div className="agents-table-card">
-            <table className="agents-table">
-              <thead>
-                <tr>
-                  <th>Agent Name</th>
-                  <th>Company Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Properties</th>
-                  <th>Inspections</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
+          <div className="d-flex gap-2">
+            <select className="form-select">
+              <option>Status</option>
+              <option>Active</option>
+              <option>Inactive</option>
+              <option>Suspended</option>
+            </select>
 
-              <tbody>
-                {agentsData.map((agent, index) => (
-                  <tr key={index}>
-                    <td>{agent.name}</td>
-                    <td>{agent.company}</td>
-                    <td>{agent.email}</td>
-                    <td>{agent.phone}</td>
-                    <td>{agent.properties}</td>
-                    <td>{agent.inspections}</td>
-                    <td>
-                      <span className={`status ${agent.status.toLowerCase()}`}>
-                        {agent.status}
-                      </span>
-                    </td>
-                    <td className="actions">
-                      <i className="bi bi-eye"></i>
-                      <i className="bi bi-pencil"></i>
+            <button
+              className="btn text-white text-nowrap"
+              style={{ backgroundColor: "#1e3a8a" }}
+            >
+              + Add Agents
+            </button>
+          </div>
+        </div>
+
+        {/* ================= DESKTOP TABLE ================= */}
+        <div className="card border-0 shadow-sm rounded overflow-hidden d-none d-md-block">
+          <table
+            className="table align-middle mb-0"
+            style={{ tableLayout: "fixed", fontSize: "12px" }}
+          >
+            <thead style={{ backgroundColor: "#dde2ed" }}>
+              <tr className="text-muted">
+                <th>Agent Name</th>
+                <th>Company Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th className="text-center">Properties</th>
+                <th className="text-center">Inspections</th>
+                <th className="text-center">Status</th>
+                <th className="text-center">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {agentsData.map((agent, index) => (
+                <tr key={index} style={{ height: "55px" }}>
+                  <td>{agent.name}</td>
+                  <td>{agent.company}</td>
+                  <td className="text-truncate">{agent.email}</td>
+                  <td>{agent.phone}</td>
+                  <td className="text-center">{agent.properties}</td>
+                  <td className="text-center">{agent.inspections}</td>
+
+                  <td className="text-center">
+                    <span
+                      className={`badge w-100 py-2 rounded-3 ${
+                        agent.status === "Active"
+                          ? "bg-success-subtle text-success"
+                          : agent.status === "Inactive"
+                          ? "bg-warning-subtle text-warning"
+                          : "bg-danger-subtle text-danger"
+                      }`}
+                    >
+                      {agent.status}
+                    </span>
+                  </td>
+
+                  <td className="text-center">
+                    <div className="d-flex justify-content-center gap-2">
+                      <i className="bi bi-eye text-secondary"></i>
+                      <i className="bi bi-pencil text-secondary"></i>
                       <i className="bi bi-trash text-danger"></i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            {/* PAGINATION */}
-            <div className="pagination-bar">
-              <span>1 of 100 rows selected</span>
+        {/* ================= MOBILE CARD VIEW ================= */}
+        <div className="d-block d-md-none mt-3">
+          {agentsData.map((agent, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-4 shadow-sm p-3 mb-3"
+              style={{ fontSize: "13px" }}
+            >
+              <div className="fw-semibold mb-2">{agent.name}</div>
 
-              <div className="pagination-controls">
-                <button>Previous</button>
-                <button className="active-page">1</button>
-                <button>2</button>
-                <button>3</button>
-                <span>...</span>
-                <button>100</button>
-                <button>Next</button>
+              <div className="text-muted small mb-2">
+                {agent.company}
+              </div>
+
+              <div className="mb-2">{agent.email}</div>
+              <div className="mb-2">{agent.phone}</div>
+
+              <div className="d-flex justify-content-between mb-2">
+                <span>Properties</span>
+                <span>{agent.properties}</span>
+              </div>
+
+              <div className="d-flex justify-content-between mb-2">
+                <span>Inspections</span>
+                <span>{agent.inspections}</span>
+              </div>
+
+              <div className="mb-3">
+                <span
+                  className={`badge w-100 py-2 rounded-3 ${
+                    agent.status === "Active"
+                      ? "bg-success-subtle text-success"
+                      : agent.status === "Inactive"
+                      ? "bg-warning-subtle text-warning"
+                      : "bg-danger-subtle text-danger"
+                  }`}
+                >
+                  {agent.status}
+                </span>
+              </div>
+
+              <div className="d-flex justify-content-end gap-3">
+                <i className="bi bi-eye text-secondary"></i>
+                <i className="bi bi-pencil text-secondary"></i>
+                <i className="bi bi-trash text-danger"></i>
               </div>
             </div>
-
-          </div>
-
+          ))}
         </div>
+
       </div>
     </>
   );

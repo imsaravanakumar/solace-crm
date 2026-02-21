@@ -1,0 +1,10 @@
+.content-wrapper {
+  min-height: 100vh;
+}
+
+/* Desktop only */
+@media (min-width: 992px) {
+  .content-wrapper {
+    margin-left: 260px;
+  }
+}

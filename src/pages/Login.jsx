@@ -1,57 +1,92 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/login.css";
 import logo from "../assets/logo.png";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // You can add validation later
-    navigate("/dashboard");
-  };
-
   return (
-    <div className="login-wrapper">
-      <div className="login-container">
+    <div className="container-fluid min-vh-100">
+      <div className="row min-vh-100 d-flex justify-content-around">
 
-        <div className="login-left">
-          <h2 className="login-title">Welcome to Solace</h2>
-          <p className="login-subtitle">Sign in to your account</p>
+        {/* LEFT SIDE */}
+        <div className="col-12 col-md-6 col-lg-5 d-flex align-items-center justify-content-center bg-white px-4 py-5">
+          <div className="w-100" style={{ maxWidth: "400px" }}>
+            
+            <h3 className="fw-bold mb-2 text-center text-md-start">
+              Welcome to Solace
+            </h3>
+            <p className="text-muted mb-4 text-center text-md-start">
+              Sign in to your account
+            </p>
 
-          <div className="input-group-custom">
-            <input type="text" placeholder="Email address" />
-          </div>
-
-          <div className="input-group-custom password-field">
+            {/* Email */}
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              type="email"
+              className="form-control rounded-pill mb-3 shadow-none"
+              style={{ height: "48px" }}
+              placeholder="Email address"
             />
-            <i
-              className={`bi ${
-                showPassword ? "bi-eye"  : "bi-eye-slash"
-              } eye-icon`}
-              onClick={() => setShowPassword(!showPassword)}
-            ></i>
-          </div>
 
-          <div className="login-options">
-            <div className="remember">
-              <input type="checkbox" />
-              <span>Remember me</span>
+            {/* Password */}
+            <div className="position-relative mb-3">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control rounded-pill shadow-none"
+                style={{ height: "48px" }}
+                placeholder="Password"
+              />
+              <i
+                className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}
+                position-absolute top-50 end-0 translate-middle-y me-4`}
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowPassword(!showPassword)}
+              ></i>
             </div>
-            <a href="#">Forgot password?</a>
-          </div>
 
-          <button className="login-btn" onClick={handleLogin}>
-            Login
-          </button>
+            {/* Remember + Forgot */}
+            <div className="d-flex justify-content-between small mb-4 flex-wrap">
+              <div className="mb-2 mb-sm-0">
+                <input type="checkbox" className="me-1" />
+                Remember me
+              </div>
+              <a
+                href="#"
+                className="text-decoration-none"
+                style={{ color: "#4f46e5" }}
+              >
+                Forgot password?
+              </a>
+            </div>
+
+            {/* Button */}
+            <button
+              className="btn w-100 rounded-pill text-white"
+              style={{
+                background: "#2d4aa5",
+                height: "50px",
+              }}
+              onClick={() => navigate("/dashboard")}
+            >
+              Login
+            </button>
+          </div>
         </div>
 
-        <div className="login-right">
-          <img src={logo} alt="logo" className="login-logo" />
+        {/* RIGHT SIDE */}
+        <div
+          className="col-12 col-md-6 col-lg-4 rounded-2 my-4 d-flex align-items-center justify-content-center text-center p-5"
+          style={{
+            background: "linear-gradient(160deg, #0B1530 70%, #1f3d88 100%)",
+          }}
+        >
+          <img
+            src={logo}
+            className="img-fluid"
+            style={{ maxWidth: "200px" }}
+            alt="logo"
+          />
         </div>
 
       </div>

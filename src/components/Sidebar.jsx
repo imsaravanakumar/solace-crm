@@ -14,7 +14,7 @@ function Sidebar() {
     { name: "Audit Logs", icon: "bi-file-earmark-text", path: "#" },
     { name: "Settings", icon: "bi-gear", path: "#" },
   ];
-
+  
   return (
     <>
       {/* ================= DESKTOP SIDEBAR ================= */}
@@ -47,16 +47,26 @@ function Sidebar() {
 }
 
 function SidebarContent({ menu, location }) {
-  const handleClose = () => {
-    const offcanvasEl = document.getElementById("mobileSidebar");
-    if (offcanvasEl && window.bootstrap) {
-      const instance =
-        window.bootstrap.Offcanvas.getInstance(offcanvasEl);
-      if (instance) {
-        instance.hide();
-      }
+ const handleClose = () => {
+  const offcanvasEl = document.getElementById("mobileSidebar");
+
+  if (offcanvasEl && window.bootstrap) {
+    const instance =
+      window.bootstrap.Offcanvas.getInstance(offcanvasEl);
+
+    if (instance) {
+      instance.hide();
     }
-  };
+  }
+
+  const backdrop = document.querySelector(".offcanvas-backdrop");
+  if (backdrop) {
+    backdrop.remove();
+  }
+
+  document.body.classList.remove("offcanvas-backdrop");
+  document.body.style.overflow = "auto";
+};
 
   return (
     <>

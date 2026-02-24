@@ -13,33 +13,41 @@ function Login() {
         {/* LEFT SIDE */}
         <div className="col-12 col-md-6 col-lg-5 d-flex align-items-center justify-content-center bg-white px-4 py-5">
           <div className="w-100" style={{ maxWidth: "400px" }}>
-            
-            <h3 className="fw-bold mb-2 text-center text-md-start">
+
+            <h3 className="fw-bold mb-2 text-center">
               Welcome to Solace
             </h3>
-            <p className="text-muted mb-4 text-center text-md-start">
+            <p className="text-black mb-4 text-center fw-medium ">
               Sign in to your account
             </p>
 
             {/* Email */}
-            <input
-              type="email"
-              className="form-control rounded-pill mb-3 shadow-none"
-              style={{ height: "48px" }}
-              placeholder="Email address"
-            />
+            <div className="floating-pill mb-4">
+              <input
+                type="email"
+                id="email"
+                className="form-control rounded-pill shadow-none"
+                placeholder=" "
+                required
+              />
+              <label htmlFor="email">Email address</label>
+            </div>
 
             {/* Password */}
-            <div className="position-relative mb-3">
+            {/* Password */}
+            <div className="floating-pill mb-4 position-relative">
               <input
                 type={showPassword ? "text" : "password"}
-                className="form-control rounded-pill shadow-none"
-                style={{ height: "48px" }}
-                placeholder="Password"
+                id="password"
+                className="form-control rounded-pill shadow-none pe-5"
+                placeholder=" "
+                required
               />
+              <label htmlFor="password">Password</label>
+
               <i
                 className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}
-                position-absolute top-50 end-0 translate-middle-y me-4`}
+    position-absolute top-50 end-0 translate-middle-y me-4`}
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowPassword(!showPassword)}
               ></i>
@@ -76,7 +84,7 @@ function Login() {
 
         {/* RIGHT SIDE */}
         <div
-          className="col-12 col-md-6 col-lg-4 rounded-2 my-4 d-flex align-items-center justify-content-center text-center p-5"
+          className="col-12 col-md-6 col-lg-4 rounded-5 my-2 d-flex align-items-center justify-content-center text-center p-5"
           style={{
             background: "linear-gradient(160deg, #0B1530 70%, #1f3d88 100%)",
           }}
